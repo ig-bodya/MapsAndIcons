@@ -1,0 +1,16 @@
+<div class="white-board">
+    <p class="markers-header">Markers</p>
+    <div class="search-wrapper">
+        <input class="search-content"
+               placeholder="{{placeholderText}}"
+               type="text"
+               (input)="changeSearchText($event)">
+    </div>
+    <div class="markers-wrapper">
+        <div *ngFor="let marker of markers" class="marker-item" (click)="chooseMarker(marker)"
+             [ngStyle]="{'background-color': marker.isClicked? selectedColor: defaultColor}">
+            <img src="assets/icons/car.svg" class="car-icon" alt="Car">
+            <p>{{marker.name}}</p>
+        </div>
+    </div>
+</div>
