@@ -1,4 +1,4 @@
 <div class="map-and-icons-app">
     <app-map [markers]="markers" [center]="center"></app-map>
-    <app-list [markers]="markers" (emitSearchText)="filterMarkers($event)" (emitCenter)="chooseMarker($event)"></app-list>
+    <app-list [markers]="markers" (emitSearchText)="filterMarkers($event)" (emitChangeCenter)="chooseMarker($event)"></app-list>
 </div>

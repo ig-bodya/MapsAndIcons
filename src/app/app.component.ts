@@ -1,36 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MarkerService } from './services/marker.service';
 import { Marker } from './models/marker';
-import { Center } from './models/center';
+import { Point } from './models/point';
 
-const DEFAULT_CENTER: Center ={
+const DEFAULT_CENTER: Point = {
   latitude: 49.842957,
-  longitude: 24.031111
-}
+  longitude: 24.031111,
+};
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   markers: Marker[] = [];
   filteredItems: Marker[] = [];
-  center: Center = DEFAULT_CENTER
+  center: Point = DEFAULT_CENTER;
 
   constructor(private markersService: MarkerService) {
-    this.markersService.getMarkers().then(icons => {
-        this.markers = icons;
-        this.filteredItems = [...this.markers];
-        this.filteredItems.forEach(item => item.isClicked = false);
-      }
-    )
   }
 
-  chooseMarker(center: Center): void {
+  ngOnInit(): void {
+    this.markersService.getMarkers().then(icons => {
+      this.markers = icons;
+      this.filteredItems = [...this.markers];
+    });
+  }
+
+  chooseMarker(center: Point): void {
     this.center.latitude = center.latitude;
-    this.center.longitude = center.longitude
+    this.center.longitude = center.longitude;
   }
 
   filterMarkers(searchedValue: string): void {

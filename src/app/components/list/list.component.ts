@@ -1,6 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Marker } from '../../models/marker';
-import { Center } from '../../models/center';
+import { Point } from '../../models/point';
+
+const DEFAULT_COLOR = '#fff';
+const SELECTED_COLOR = '#f8fe94';
 
 @Component({
   selector: 'app-list',
@@ -8,19 +11,15 @@ import { Center } from '../../models/center';
   styleUrls: ['./list.component.scss']
 })
 
-export class ListComponent implements OnInit {
+export class ListComponent {
 
   @Input() markers: Marker[] = [];
   @Output() emitSearchText: EventEmitter<string> = new EventEmitter<string>();
-  @Output() emitCenter: EventEmitter<Center> = new EventEmitter<Center>();
-  placeholderText = 'Search';
-  selectedColor = '#f8fe94';
-  defaultColor = '#fff';
+  @Output() emitChangeCenter: EventEmitter<Point> = new EventEmitter<Point>();
+  selectedColor = SELECTED_COLOR;
+  defaultColor = DEFAULT_COLOR;
 
   constructor() {
-  }
-
-  ngOnInit(): void {
   }
 
   chooseMarker(marker: Marker): void {
@@ -32,14 +31,14 @@ export class ListComponent implements OnInit {
   uncheckMarkers(): void {
     this.markers.forEach(marker => {
       marker.isClicked = false;
-    })
+    });
   }
 
   setCenter(marker: Marker): void {
-    this.emitCenter.emit({
+    this.emitChangeCenter.emit({
       latitude: marker.latitude,
       longitude: marker.longitude,
-    })
+    });
   }
 
   changeSearchText(event: any): void {

@@ -6,7 +6,7 @@
     <agm-marker *ngFor="let pointer of markers"
                 [latitude]="pointer.latitude"
                 [longitude]="pointer.longitude"
-                [iconUrl]="pointer.isClicked? currentMarker: carPositionMarker"
+                [iconUrl]="pointer.isClicked ? currentMarker : carPositionMarker"
                 (markerClick)="markerClick(pointer)">
     </agm-marker>
 </agm-map>
